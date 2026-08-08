@@ -1,0 +1,20 @@
+# How cPanel publishes this repo when you press "Deploy HEAD Commit".
+#
+# Only the files that make up the public website are copied. The repo itself
+# lives outside the web root, so anything not listed here — this file, the
+# README, git's own folder — is never reachable from the internet.
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/apexcorner/public_html/
+    - /bin/cp index.html      $DEPLOYPATH
+    - /bin/cp waitlist.html   $DEPLOYPATH
+    - /bin/cp subscribe.html  $DEPLOYPATH
+    - /bin/cp support.html    $DEPLOYPATH
+    - /bin/cp privacy.html    $DEPLOYPATH
+    - /bin/cp terms.html      $DEPLOYPATH
+    - /bin/cp 404.html        $DEPLOYPATH
+    - /bin/cp boutiq-glove.png          $DEPLOYPATH
+    - /bin/cp boutiq-wordmark.png       $DEPLOYPATH
+    - /bin/cp boutiq-icon-apple-ready.png $DEPLOYPATH
+    - /bin/cp .htaccess       $DEPLOYPATH

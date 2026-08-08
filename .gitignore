@@ -1,0 +1,4 @@
+.netlify/
+netlify.toml
+index.html.bak-*
+.DS_Store

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join The Waitlist — Bout IQ | Elite Boxing Performance</title>
+<meta name="description" content="Be first on Bout IQ — the complete boxing performance platform. Join the waitlist and tell us which plan you want.">
+<style>
+  :root{
+    --bg:#08080A; --bg2:#0E0E12; --panel:#141419; --panel2:#1A1A20; --line:rgba(255,255,255,.08);
+    --gold:#D4A537; --gold-l:#E7BE52; --gold-d:#B8901F; --goldsoft:rgba(212,165,55,.12);
+    --text:#F5F3EE; --muted:#9A968E; --faint:#5E5A54; --red:#D6402F; --green:#5FD08A;
+    --sans:-apple-system,"Helvetica Neue","Segoe UI",Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;overflow-x:hidden;
+    background-image:radial-gradient(120% 90% at 80% -10%,rgba(212,165,55,.10),rgba(0,0,0,0) 55%);}
+  .wrap{max-width:640px;margin:0 auto;padding:0 22px;}
+  a{color:inherit;text-decoration:none;}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(8,8,10,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+  nav .row{max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+  /* THE LOCKUP: glove left, name right. The wordmark alone is half a logo. */
+  .brand{display:flex;align-items:center;gap:9px;}
+  .brand .gl{height:30px;width:auto;display:block;}
+  .brand .wm{height:22px;display:block;}
+  .navback{font-size:14px;color:var(--muted);font-weight:700;}
+  /* Hero has vertical room, so the STACKED lockup: glove above the name. */
+  .heroglove{width:min(112px,30%);height:auto;display:block;margin:0 auto 14px;filter:drop-shadow(0 10px 30px rgba(212,165,55,.28));}
+  .herowm{width:min(220px,58%);height:auto;display:block;margin:0 auto 16px;filter:drop-shadow(0 8px 26px rgba(212,165,55,.22));}
+
+  header{text-align:center;padding:56px 0 26px;}
+  .eyebrow{color:var(--gold);letter-spacing:4px;text-transform:uppercase;font-size:12px;font-weight:800;}
+  h1{font-size:38px;line-height:1.1;font-weight:900;margin:14px 0 12px;letter-spacing:-.5px;}
+  h1 .gold{color:var(--gold);}
+  .sub{color:var(--muted);font-size:16px;max-width:520px;margin:0 auto;}
+  .rule{width:56px;height:3px;background:var(--gold);border-radius:2px;margin:20px auto 0;}
+
+  .card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:20px;padding:26px 24px;margin:26px 0 40px;}
+  label{display:block;font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin:0 0 8px;}
+  .field{margin-bottom:20px;}
+  input[type=text],input[type=email]{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 15px;color:var(--text);font-size:16px;font-family:inherit;}
+  input::placeholder{color:var(--faint);}
+  input:focus{outline:none;border-color:var(--gold);}
+
+  .opts{display:grid;gap:10px;}
+  .opt{position:relative;}
+  .opt input{position:absolute;opacity:0;inset:0;cursor:pointer;}
+  .opt span{display:block;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:15px;font-weight:700;cursor:pointer;transition:border-color .15s,background .15s;}
+  .opt span small{display:block;font-weight:500;font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .opt .prow{display:flex;justify-content:space-between;align-items:baseline;gap:10px;}
+  .opt .prow b{font-weight:800;font-size:15px;}
+  .opt .prow em{font-style:normal;color:var(--gold);font-weight:900;font-size:15px;white-space:nowrap;}
+  .opt .prow em small{display:inline;font-weight:600;font-size:11px;color:var(--muted);margin:0;}
+  .opt input:checked + span{border-color:var(--gold);background:var(--goldsoft);}
+  .opts.two{grid-template-columns:1fr 1fr;}
+  @media(max-width:460px){.opts.two{grid-template-columns:1fr;}}
+
+  .btn{width:100%;border:none;cursor:pointer;background:linear-gradient(180deg,var(--gold-l),var(--gold-d));color:#1a1200;font-weight:900;font-size:16px;padding:16px;border-radius:14px;letter-spacing:.3px;box-shadow:0 10px 30px rgba(212,165,55,.28),inset 0 1px 0 rgba(255,255,255,.4);transition:transform .15s;font-family:inherit;}
+  .btn:active{transform:scale(.99);}
+  .fineprint{text-align:center;color:var(--faint);font-size:12px;margin-top:14px;}
+
+  .success{display:none;text-align:center;padding:20px 6px;}
+  .success .tick{width:64px;height:64px;border-radius:50%;background:var(--goldsoft);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 16px;}
+  .success h2{font-size:24px;font-weight:900;margin-bottom:8px;}
+  .success p{color:var(--muted);font-size:15px;max-width:420px;margin:0 auto;}
+
+  footer{text-align:center;color:var(--faint);font-size:12.5px;padding:24px 0 40px;border-top:1px solid var(--line);}
+  footer a{color:var(--muted);}
+  .hp{position:absolute;left:-9999px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="row">
+    <a class="brand" href="/">
+      <img class="gl" src="boutiq-glove.png" alt="">
+      <img class="wm" src="boutiq-wordmark.png" alt="Bout IQ">
+    </a>
+    <a class="navback" href="/">← Back to site</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header>
+    <img class="heroglove" src="boutiq-glove.png" alt="">
+    <img class="herowm" src="boutiq-wordmark.png" alt="Bout IQ">
+    <div class="eyebrow">Elite Boxing Performance</div>
+    <h1>Join The <span class="gold">Waitlist</span></h1>
+    <p class="sub">Training, roadwork, nutrition, recovery and coaching — the complete boxing platform. Be first to know the moment it's live.</p>
+    <div class="rule"></div>
+  </header>
+
+  <div class="card">
+    <!-- Signups go to our own Supabase table, so this form works on any host.
+         It used to be a Netlify Form, which meant the entries lived in someone
+         else's dashboard and the form would have died the day the site moved. -->
+    <form id="waitlistForm">
+      <p class="hp"><label>Don't fill this in <input name="bot-field"></label></p>
+
+      <div class="field">
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" placeholder="First and last name" autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="you@email.com" required autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label>I am a…</label>
+        <div class="opts two">
+          <label class="opt"><input type="radio" name="role" value="Fighter" id="r1" checked><span>Fighter</span></label>
+          <label class="opt"><input type="radio" name="role" value="Coach" id="r2"><span>Coach</span></label>
+          <label class="opt"><input type="radio" name="role" value="Gym owner" id="r3"><span>Gym owner</span></label>
+          <label class="opt"><input type="radio" name="role" value="Just exploring" id="r4"><span>Just exploring</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Which plan interests you most?</label>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="plan" value="Free" id="p0"><span><span class="prow"><b>Free</b><em>£0</em></span><small>Core training log to get started</small></span></label>
+          <label class="opt"><input type="radio" name="plan" value="Solo Pro £3.99/mo" id="p1" checked><span><span class="prow"><b>Solo Pro</b><em>£3.99<small>/mo</small></em></span><small>1 fighter — full analytics, progression trends, unlimited AI meal scan, no ads</small></span></label>
+          <label class="opt"><input type="radio" name="plan" value="Undisputed £7.99/mo" id="p1b"><span><span class="prow"><b>Undisputed</b><em>£7.99<small>/mo</small></em></span><small>1 fighter — voice-everything: speak any session or meal, it logs itself. All AI uncapped</small></span></label>
+          <label class="opt"><input type="radio" name="plan" value="Coach Starter £16.99/mo" id="p2"><span><span class="prow"><b>Coach Starter</b><em>£16.99<small>/mo</small></em></span><small>Up to 5 fighters</small></span></label>
+          <label class="opt"><input type="radio" name="plan" value="Gym Starter £31.99/mo" id="p3"><span><span class="prow"><b>Gym Starter</b><em>£31.99<small>/mo</small></em></span><small>Up to 10 fighters</small></span></label>
+          <label class="opt"><input type="radio" name="plan" value="Gym Pro £64.99/mo" id="p4"><span><span class="prow"><b>Gym Pro</b><em>£64.99<small>/mo</small></em></span><small>Up to 25 fighters</small></span></label>
+          <label class="opt"><input type="radio" name="plan" value="Gym Elite £119.99/mo" id="p5"><span><span class="prow"><b>Gym Elite</b><em>£119.99<small>/mo</small></em></span><small>Up to 50 fighters</small></span></label>
+          <label class="opt"><input type="radio" name="plan" value="Gym Undisputed (voice for whole gym)" id="p5b"><span><span class="prow"><b>Gym Undisputed</b><em>from £24.99<small>/mo</small></em></span><small>Whole gym goes voice-powered — every fighter gets Undisputed (5/10/25/50: £24.99/£44.99/£99.99/£174.99)</small></span></label>
+          <label class="opt"><input type="radio" name="plan" value="Not sure yet" id="p6"><span><span class="prow"><b>Not sure yet</b></span><small>Show me everything at launch</small></span></label>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:22px;">
+        <label for="gym">Gym / club <span style="text-transform:none;font-weight:500;color:var(--faint)">(optional)</span></label>
+        <input type="text" id="gym" name="gym" placeholder="e.g. JMC Boxing" autocomplete="organization">
+      </div>
+
+      <button type="submit" class="btn">Join The Waitlist</button>
+      <p class="fineprint">We'll only email you about the Bout IQ launch. No spam, ever.</p>
+    </form>
+
+    <div class="success" id="successMsg">
+      <div class="tick">✓</div>
+      <h2>You're On The List</h2>
+      <p>Thanks for joining — you'll be among the first to know when Bout IQ goes live. Keep an eye on your inbox.</p>
+    </div>
+  </div>
+
+  <footer>
+    Apex-Corner Apps Ltd · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a>
+  </footer>
+</div>
+
+<script>
+  // The publishable key. Safe in a public page by design — the waitlist table
+  // grants anon INSERT and nothing else, so this can add you to the list but
+  // cannot read anybody back off it.
+  var SUPABASE_URL = 'https://jedojiigihbfvjdeaucd.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_R4wM8NnGI5c-M7yNbKYL0g_n92Bunax';
+
+  var form = document.getElementById('waitlistForm');
+  var btn  = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Honeypot: a real person never fills a hidden field. Pretend it worked so
+    // a bot has nothing to learn from the response.
+    if (form.querySelector('[name="bot-field"]').value) {
+      form.style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+      return;
+    }
+
+    var f = new FormData(form);
+    var row = {
+      name:   (f.get('name')  || '').trim(),
+      email:  (f.get('email') || '').trim().toLowerCase(),
+      role:   f.get('role'),
+      plan:   f.get('plan'),
+      gym:    (f.get('gym') || '').trim() || null,
+      source: document.referrer || 'direct'
+    };
+    if (!row.email) { return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Joining…';
+
+    fetch(SUPABASE_URL + '/rest/v1/waitlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(row)
+    })
+    .then(function (res) {
+      // The old version showed "You're On The List" for ANY response, so a 404
+      // looked exactly like success. That is how this form shipped broken once.
+      // Check the status.
+      if (!res.ok) { throw new Error('HTTP ' + res.status); }
+      form.style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    })
+    .catch(function () {
+      btn.disabled = false;
+      btn.textContent = 'Join The Waitlist';
+      alert('Something went wrong — please try again, or email hello@apex-corner.com and we will add you.');
+    });
+  });
+</script>
+
+</body>
+</html>

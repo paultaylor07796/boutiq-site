@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Subscribe · Bout IQ</title>
+<meta name="description" content="Put your whole gym on Bout IQ. Choose a plan and every fighter on your roster is unlocked.">
+<link rel="icon" href="boutiq-icon-apple-ready.png">
+<style>
+  :root{ --bg:#0D0D0F; --surface:#18181B; --elev:#222228; --border:#2C2C32;
+         --gold:#D4A537; --text:#fff; --dim:#C8C5BE; --faint:#9B9892; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+       font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,sans-serif;
+       -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{padding:26px 0;border-bottom:1px solid var(--border)}
+  /* THE LOCKUP: glove left, name right. */
+  header a{display:flex;align-items:center;gap:10px;text-decoration:none}
+  header img.gl{height:34px;width:auto;display:block}
+  header img{height:26px;display:block}
+  h1{font-size:clamp(28px,5vw,44px);margin:34px 0 10px;letter-spacing:-.5px}
+  h1 span{color:var(--gold)}
+  .lede{color:var(--dim);font-size:17px;line-height:1.6;max-width:620px;margin:0 0 30px}
+
+  /* Step 1 — gym code */
+  .step{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:26px}
+  .steplabel{font-size:11px;font-weight:900;letter-spacing:1.6px;color:var(--gold);margin-bottom:10px}
+  .steph{font-size:19px;font-weight:800;margin:0 0 6px}
+  .stepsub{color:var(--faint);font-size:14px;line-height:1.55;margin:0 0 14px}
+  input[type=text]{width:100%;max-width:320px;background:var(--elev);border:1px solid var(--border);
+       border-radius:12px;color:#fff;padding:14px 16px;font-size:20px;letter-spacing:3px;
+       text-transform:uppercase;font-weight:800;outline:none}
+  input[type=text]:focus{border-color:var(--gold)}
+  .codemsg{font-size:13px;margin-top:10px;min-height:18px}
+  .ok{color:#10B981} .bad{color:#EF4444}
+
+  /* Plans */
+  .grouplabel{font-size:12px;font-weight:900;letter-spacing:1.4px;color:var(--faint);
+       text-transform:uppercase;margin:30px 0 14px}
+  .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .plan{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;
+       display:flex;flex-direction:column}
+  .plan.pop{border-color:rgba(212,165,55,.55)}
+  .poppill{align-self:flex-start;font-size:10px;font-weight:900;letter-spacing:1px;color:#000;
+       background:var(--gold);border-radius:999px;padding:4px 10px;margin-bottom:10px}
+  .pn{font-size:17px;font-weight:800}
+  .pp{font-size:30px;font-weight:900;color:var(--gold);margin:6px 0 2px;letter-spacing:-1px}
+  .pp small{font-size:14px;font-weight:700;color:var(--faint);letter-spacing:0}
+  .pcap{color:var(--faint);font-size:13px;margin-bottom:12px}
+  .plan ul{list-style:none;padding:0;margin:0 0 16px;flex:1}
+  .plan li{color:var(--dim);font-size:13.5px;padding:5px 0 5px 20px;position:relative;line-height:1.45}
+  .plan li:before{content:'✓';position:absolute;left:0;color:var(--gold);font-weight:900}
+  .buy{display:block;text-align:center;background:var(--gold);color:#000;font-weight:900;font-size:15px;
+       padding:13px;border-radius:12px;text-decoration:none;border:none;width:100%;cursor:pointer;
+       font-family:inherit}
+  .buy[disabled]{opacity:.4;cursor:not-allowed}
+
+  /* Billing cycle toggle */
+  .billing{display:inline-flex;background:var(--elev);border:1px solid var(--border);
+       border-radius:999px;padding:4px;margin:22px 0 0;gap:4px}
+  .bseg{background:none;border:none;color:var(--dim);font-family:inherit;font-size:14px;
+       font-weight:800;padding:10px 18px;border-radius:999px;cursor:pointer;white-space:nowrap}
+  .bseg.on{background:var(--gold);color:#000}
+  .save{font-size:11px;font-weight:900;opacity:.75;margin-left:5px}
+  .bseg.on .save{opacity:.85}
+  .peryear{display:none}
+  .note{color:var(--faint);font-size:13px;line-height:1.6;margin:26px 0 0}
+  footer{border-top:1px solid var(--border);margin-top:50px;padding:24px 0 40px;color:var(--faint);font-size:13px}
+  footer a{color:var(--faint)}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="index.html"><img class="gl" src="boutiq-glove.png" alt=""><img src="boutiq-wordmark.png" alt="Bout IQ"></a></div></header>
+
+<div class="wrap">
+  <h1>Put your whole gym <span>on Bout IQ</span></h1>
+  <p class="lede">One subscription covers your entire roster. Every fighter and every coach in your gym
+     is unlocked automatically — no separate sign-ups, no per-person faff.</p>
+
+  <!-- STEP 1 — gym code -->
+  <div class="step">
+    <div class="steplabel">STEP 1</div>
+    <div class="steph">Enter your gym code</div>
+    <p class="stepsub">This is the 6-character code from the app (Settings → your gym). It tells us which
+       gym to unlock the moment your payment goes through.</p>
+    <input type="text" id="gymcode" maxlength="6" placeholder="ABC123" autocomplete="off" spellcheck="false">
+    <div class="codemsg" id="codemsg"></div>
+  </div>
+
+  <!-- STEP 2 — plans -->
+  <div class="steplabel" style="margin-bottom:6px">STEP 2</div>
+  <div class="steph" style="font-size:19px;font-weight:800;margin-bottom:4px">Choose your plan</div>
+  <p class="stepsub" style="margin-bottom:0">Cancel anytime. Pay yearly and get two months free. Prices exclude VAT where applicable.</p>
+
+
+  <div class="billing">
+    <button class="bseg on" data-cycle="monthly">Monthly</button>
+    <button class="bseg" data-cycle="annual">Yearly <span class="save">2 months free</span></button>
+  </div>
+
+  <div class="grouplabel">Coach &amp; Gym — the full smart app for your roster</div>
+  <div class="plans">
+    <div class="plan">
+      <div class="pn">Coach Starter</div><div class="pp" data-m="16.99" data-a="169.99">£16.99<small>/mo</small></div>
+      <div class="pcap">Up to 5 fighters</div>
+      <ul><li>Full coach dashboard</li><li>Team calendar</li><li>Multiple coach roles</li><li>Private notes &amp; invites</li></ul>
+      <button class="buy" data-plan="coach_starter">Choose Coach Starter</button>
+    </div>
+    <div class="plan pop">
+      <div class="poppill">MOST POPULAR</div>
+      <div class="pn">Gym Starter</div><div class="pp" data-m="31.99" data-a="319.99">£31.99<small>/mo</small></div>
+      <div class="pcap">Up to 10 fighters</div>
+      <ul><li>Full coach dashboard</li><li>Team calendar</li><li>Private notes &amp; invites</li><li>All Pro features</li></ul>
+      <button class="buy" data-plan="gym_starter">Choose Gym Starter</button>
+    </div>
+    <div class="plan">
+      <div class="pn">Gym Pro</div><div class="pp" data-m="64.99" data-a="649.99">£64.99<small>/mo</small></div>
+      <div class="pcap">Up to 25 fighters</div>
+      <ul><li>Everything in Gym Starter</li><li>Advanced analytics</li><li>Priority support</li></ul>
+      <button class="buy" data-plan="gym_pro">Choose Gym Pro</button>
+    </div>
+    <div class="plan">
+      <div class="pn">Gym Elite</div><div class="pp" data-m="119.99" data-a="1,199.99">£119.99<small>/mo</small></div>
+      <div class="pcap">Up to 50 fighters</div>
+      <ul><li>Everything in Gym Pro</li><li>White-glove onboarding</li><li>Dedicated support</li></ul>
+      <button class="buy" data-plan="gym_elite">Choose Gym Elite</button>
+    </div>
+  </div>
+
+  <div class="grouplabel">Gym Undisputed — the whole gym goes voice-powered</div>
+  <div class="plans">
+    <div class="plan">
+      <div class="pn">Undisputed · 5</div><div class="pp" data-m="24.99" data-a="249.99">£24.99<small>/mo</small></div>
+      <div class="pcap">Up to 5 fighters · £5.00 each</div>
+      <ul><li>Everything in the gym tiers</li><li>Voice-everything for every fighter</li><li>All AI uncapped</li></ul>
+      <button class="buy" data-plan="gym_und_5">Choose Undisputed · 5</button>
+    </div>
+    <div class="plan pop">
+      <div class="poppill">BEST VALUE</div>
+      <div class="pn">Undisputed · 10</div><div class="pp" data-m="44.99" data-a="449.99">£44.99<small>/mo</small></div>
+      <div class="pcap">Up to 10 fighters · £4.50 each</div>
+      <ul><li>Everything in the gym tiers</li><li>Voice-everything for every fighter</li><li>All AI uncapped</li></ul>
+      <button class="buy" data-plan="gym_und_10">Choose Undisputed · 10</button>
+    </div>
+    <div class="plan">
+      <div class="pn">Undisputed · 25</div><div class="pp" data-m="99.99" data-a="999.99">£99.99<small>/mo</small></div>
+      <div class="pcap">Up to 25 fighters · £4.00 each</div>
+      <ul><li>Everything in the gym tiers</li><li>Voice-everything for every fighter</li><li>All AI uncapped</li></ul>
+      <button class="buy" data-plan="gym_und_25">Choose Undisputed · 25</button>
+    </div>
+    <div class="plan">
+      <div class="pn">Undisputed · 50</div><div class="pp" data-m="174.99" data-a="1,749.99">£174.99<small>/mo</small></div>
+      <div class="pcap">Up to 50 fighters · £3.50 each</div>
+      <ul><li>Everything in the gym tiers</li><li>Voice-everything for every fighter</li><li>All AI uncapped</li></ul>
+      <button class="buy" data-plan="gym_und_50">Choose Undisputed · 50</button>
+    </div>
+  </div>
+
+  <p class="note">
+    Individual fighters subscribe inside the app — Solo Pro £3.99/mo or £39.99/yr, Undisputed £7.99/mo or £79.99/yr (two months free either way).<br>
+    Questions, or need more than 50 fighters? Email <a href="mailto:hello@apex-corner.com" style="color:var(--gold)">hello@apex-corner.com</a>.
+  </p>
+</div>
+
+<footer><div class="wrap">
+  © Apex-Corner Apps Ltd · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a>
+</div></footer>
+
+<script>
+// ── Stripe Payment Links, one per plan per billing cycle. Paste each URL from
+//    the Stripe dashboard (Payment links). A blank entry makes the button ask
+//    the visitor to get in touch rather than breaking.
+const LINKS = {
+  monthly: {
+    coach_starter: 'https://buy.stripe.com/6oUbITamK1gUg6W8RQ2ZO00',
+    gym_starter:   'https://buy.stripe.com/9B68wHdyWe3Gg6W4BA2ZO01',
+    gym_pro:       'https://buy.stripe.com/28E14f3Ym7Fig6W2ts2ZO02',
+    gym_elite:     'https://buy.stripe.com/28E3cnamK9Nq5sigki2ZO03',
+    gym_und_5:     'https://buy.stripe.com/00wbITfH47Fi7Aq1po2ZO05',
+    gym_und_10:    'https://buy.stripe.com/4gM14f52qbVy8EuaZY2ZO06',
+    gym_und_25:    'https://buy.stripe.com/cNi00bgL82kYbQGfge2ZO07',
+    gym_und_50:    'https://buy.stripe.com/5kQcMXdyWf7Kf2S5FE2ZO08',
+  },
+  annual: {
+    coach_starter: 'https://buy.stripe.com/3cI3cn1Qe1gU07Y4BA2ZO09',
+    gym_starter:   'https://buy.stripe.com/bJe8wHfH42kY3ka2ts2ZO0a',
+    gym_pro:       'https://buy.stripe.com/5kQbIT2Ui4t64oe0lk2ZO0b',
+    gym_elite:     'https://buy.stripe.com/cNibITbqO8Jm8Eu3xw2ZO0c',
+    gym_und_5:     'https://buy.stripe.com/6oU14f1Qee3G4oe6JI2ZO0d',
+    gym_und_10:    'https://buy.stripe.com/eVq6ozfH47Fi3kad862ZO0e',
+    gym_und_25:    'https://buy.stripe.com/dRm14f2Ui9NqaMCaZY2ZO0f',
+    gym_und_50:    'https://buy.stripe.com/aFa3cn1QecZC6wm4BA2ZO0g',
+  },
+};
+
+let cycle = 'monthly';
+
+const codeEl = document.getElementById('gymcode');
+const msgEl  = document.getElementById('codemsg');
+
+function code()  { return (codeEl.value || '').trim().toUpperCase(); }
+function valid() { return /^[A-Z0-9]{6}$/.test(code()); }
+
+/* Swap every headline price between the monthly and yearly figure. */
+function paintPrices() {
+  document.querySelectorAll('.pp').forEach(el => {
+    const amount = cycle === 'annual' ? el.dataset.a : el.dataset.m;
+    const unit   = cycle === 'annual' ? '/yr' : '/mo';
+    el.innerHTML = '£' + amount + '<small>' + unit + '</small>';
+  });
+}
+
+function refresh() {
+  const ok = valid();
+  msgEl.textContent = !code() ? ''
+    : ok ? '\u2713 Looks right \u2014 choose a plan below.'
+         : 'Gym codes are 6 characters (letters and numbers).';
+  msgEl.className = 'codemsg ' + (!code() ? '' : ok ? 'ok' : 'bad');
+  document.querySelectorAll('.buy').forEach(b => { b.disabled = !ok; });
+}
+
+codeEl.addEventListener('input', refresh);
+
+document.querySelectorAll('.bseg').forEach(seg => {
+  seg.addEventListener('click', () => {
+    cycle = seg.dataset.cycle;
+    document.querySelectorAll('.bseg').forEach(b => b.classList.toggle('on', b === seg));
+    paintPrices();
+  });
+});
+
+document.querySelectorAll('.buy').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (!valid()) { codeEl.focus(); return; }
+    const url = LINKS[cycle][btn.dataset.plan];
+    if (!url) {
+      alert('Online checkout for this plan is opening shortly. Email hello@apex-corner.com and we\'ll set you up today.');
+      return;
+    }
+    // Pass the gym code to Stripe as client_reference_id — the webhook reads it
+    // to unlock exactly the right gym, with no manual matching.
+    const sep = url.includes('?') ? '&' : '?';
+    window.location.href = url + sep + 'client_reference_id=' + encodeURIComponent(code());
+  });
+});
+
+paintPrices();
+refresh();
+</script>
+</body>
+</html>
