@@ -18,3 +18,5 @@ deployment:
     - /bin/cp boutiq-wordmark.png       $DEPLOYPATH
     - /bin/cp boutiq-icon-apple-ready.png $DEPLOYPATH
     - /bin/cp .htaccess       $DEPLOYPATH
+    - /bin/cp robots.txt      $DEPLOYPATH
+    - /bin/cp sitemap.xml     $DEPLOYPATH

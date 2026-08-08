@@ -1,0 +1,5 @@
+# apex-corner.com
+User-agent: *
+Allow: /
+
+Sitemap: https://apex-corner.com/sitemap.xml
