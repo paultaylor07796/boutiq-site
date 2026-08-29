@@ -238,10 +238,22 @@ document.querySelectorAll('.buy').forEach(btn => {
       alert('Online checkout for this plan is opening shortly. Email hello@apex-corner.com and we\'ll set you up today.');
       return;
     }
-    // Pass the gym code to Stripe as client_reference_id — the webhook reads it
-    // to unlock exactly the right gym, with no manual matching.
+    // Pass the gym code AND the plan that was clicked, as ABC123__gym_und_25.
+    // The webhook reads the code to unlock exactly the right gym, and the plan
+    // to know how many fighter seats they bought.
+    //
+    // ⛔ THE PLAN HAS TO TRAVEL THIS WAY. Stripe only tells the webhook a price
+    // ID, and matching those needs a secret that was never set — which is why
+    // every paying gym was uncapped until 29 Aug 2026. This page is the one
+    // place that already knows which plan was chosen, so it says so.
+    //
+    // ⛔ Underscores and alphanumerics ONLY. Stripe SILENTLY DROPS a
+    // client_reference_id containing anything else — the gym code would vanish
+    // with it and the payment would land with nothing to match it to. Gym codes
+    // are [A-Z0-9]{6}, so the last '__' always separates the two cleanly.
     const sep = url.includes('?') ? '&' : '?';
-    window.location.href = url + sep + 'client_reference_id=' + encodeURIComponent(code());
+    const ref = code() + '__' + btn.dataset.plan;
+    window.location.href = url + sep + 'client_reference_id=' + encodeURIComponent(ref);
   });
 });
 
