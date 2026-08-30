@@ -22,6 +22,22 @@
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
+  # ── /get — THE ONE ADDRESS THE APP EVER SENDS PEOPLE TO ──────────────────
+  # Every invite email, every "send to your team" share and every gym-code
+  # message points here, NEVER straight at TestFlight or the App Store.
+  #
+  # ⛔ WHY. The app used to link at whichever store was right "now", decided at
+  # BUILD time. 36 of 37 invites ever sent pointed at an App Store page that did
+  # not exist yet, and 13 real people never had a way in. A link inside somebody
+  # else's WhatsApp cannot be corrected later — but this one can, because the
+  # decision lives HERE and changes with one line and no build.
+  #
+  # ⛔ ON RELEASE DAY: change the target below to the App Store page
+  #     https://apps.apple.com/gb/app/id6785041415
+  # and deploy. Every link ever sent, including the old ones, starts working.
+  # Until then it must stay on TestFlight. CLICK IT before calling it done.
+  RewriteRule ^get/?$ https://testflight.apple.com/join/jrR5KQ2A [R=302,L]
+
   # Pretty URLs: /privacy -> /privacy.html, only when the file really exists.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
