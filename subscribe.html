@@ -68,6 +68,18 @@
   .note{color:var(--faint);font-size:13px;line-height:1.6;margin:26px 0 0}
   footer{border-top:1px solid var(--border);margin-top:50px;padding:24px 0 40px;color:var(--faint);font-size:13px}
   footer a{color:var(--faint)}
+
+  .step0{border-color:rgba(212,165,55,.45)}
+  .step0btn{display:inline-block;margin-top:6px;padding:12px 20px;border-radius:10px;
+    background:var(--gold,#D4A537);color:#111;font-weight:700;text-decoration:none}
+  .step0btn:hover{filter:brightness(1.07)}
+  .codemsg.checking{opacity:.7}
+
+  .alreadypaying{margin:18px 0 4px;padding:14px 16px;border-radius:12px;
+    border:1px solid rgba(212,165,55,.4);background:rgba(212,165,55,.07);
+    font-size:14px;line-height:1.55;color:#D8D4CC}
+  .alreadypaying b{display:block;margin-bottom:4px;color:#F0EBE1}
+  .alreadypaying a{color:var(--gold,#D4A537)}
 </style>
 </head>
 <body>
@@ -78,12 +90,30 @@
   <p class="lede">One subscription covers your entire roster. Every fighter and every coach in your gym
      is unlocked automatically — no separate sign-ups, no per-person faff.</p>
 
+  <!-- ⛔ STEP 0 — WITHOUT THIS, A BRAND-NEW GYM HAD NOWHERE TO GO.
+       This page opened by demanding a gym code "from the app". A gym owner who
+       has just found us has never opened the app, so they have no code, and the
+       page gave them no way to get one. That is the exact audience the pricing
+       is written for: every gym that is not already a customer hit a wall here
+       and had to email, or leave. -->
+  <div class="step step0">
+    <div class="steplabel">NEW HERE?</div>
+    <div class="steph">Get your gym code first — it is free and takes two minutes</div>
+    <p class="stepsub">Your gym code is created along with your gym, inside the app. Nothing to pay:
+       <b>download Bout IQ &rarr; I'm a Coach &rarr; start your own gym</b>. Your code is then on
+       <b>Settings &rarr; your gym</b>. Come back here with it and your whole roster is unlocked the
+       moment you pay.</p>
+    <a class="step0btn" href="/get">Get the app &rsaquo;</a>
+    <p class="stepsub" style="margin-top:14px">Already set your gym up? Carry straight on below.</p>
+  </div>
+
   <!-- STEP 1 — gym code -->
   <div class="step">
     <div class="steplabel">STEP 1</div>
     <div class="steph">Enter your gym code</div>
-    <p class="stepsub">This is the 6-character code from the app (Settings → your gym). It tells us which
-       gym to unlock the moment your payment goes through.</p>
+    <p class="stepsub">The 6-character code from the app (Settings → your gym). It tells us which
+       gym to unlock the moment your payment goes through — we will show you the gym name so you
+       can be sure it is the right one.</p>
     <input type="text" id="gymcode" maxlength="6" placeholder="ABC123" autocomplete="off" spellcheck="false">
     <div class="codemsg" id="codemsg"></div>
   </div>
@@ -91,12 +121,27 @@
   <!-- STEP 2 — plans -->
   <div class="steplabel" style="margin-bottom:6px">STEP 2</div>
   <div class="steph" style="font-size:19px;font-weight:800;margin-bottom:4px">Choose your plan</div>
-  <p class="stepsub" style="margin-bottom:0">Cancel anytime. Pay yearly and get two months free. Prices exclude VAT where applicable.</p>
+  <p class="stepsub" style="margin-bottom:0">Cancel anytime. Pay yearly and save 16%. Prices exclude VAT where applicable.</p>
+
+  <!-- ⛔ THE MOST EXPENSIVE THING THIS PAGE COULD DO IS LET SOMEBODY BUY TWICE.
+       Stripe Payment Links create a NEW customer on every checkout, so a gym
+       already on a plan who picks a bigger one here starts a SECOND
+       subscription and keeps paying both — nothing cancels the first, and our
+       webhook cannot tell the difference. Until there is a self-serve portal,
+       the only honest thing is to say so before they click, in the same place
+       they are about to click. -->
+  <div class="alreadypaying">
+    <b>Already on a plan and want to change it?</b>
+    Don't buy a second one here — it would start a new subscription alongside your
+    current one and you would be charged for both. Email
+    <a href="mailto:hello@apex-corner.com?subject=Change%20my%20Bout%20IQ%20plan">hello@apex-corner.com</a>
+    and we will move you across, refund anything overlapping, and never double-charge you.
+  </div>
 
 
   <div class="billing">
     <button class="bseg on" data-cycle="monthly">Monthly</button>
-    <button class="bseg" data-cycle="annual">Yearly <span class="save">2 months free</span></button>
+    <button class="bseg" data-cycle="annual">Yearly <span class="save">save 16%</span></button>
   </div>
 
   <div class="grouplabel">Coach &amp; Gym — the full smart app for your roster</div>
@@ -104,20 +149,20 @@
     <div class="plan">
       <div class="pn">Coach Starter</div><div class="pp" data-m="16.99" data-a="169.99">£16.99<small>/mo</small></div>
       <div class="pcap">Up to 5 fighters</div>
-      <ul><li>Full coach dashboard</li><li>Team calendar</li><li>Multiple coach roles</li><li>Private notes &amp; invites</li></ul>
+      <ul><li>Full coach dashboard</li><li>Team calendar</li><li>Multiple coach roles</li><li>Private notes &amp; invites</li><li>All Pro features for every fighter</li></ul>
       <button class="buy" data-plan="coach_starter">Choose Coach Starter</button>
     </div>
     <div class="plan pop">
       <div class="poppill">MOST POPULAR</div>
       <div class="pn">Gym Starter</div><div class="pp" data-m="31.99" data-a="319.99">£31.99<small>/mo</small></div>
       <div class="pcap">Up to 10 fighters</div>
-      <ul><li>Full coach dashboard</li><li>Team calendar</li><li>Private notes &amp; invites</li><li>All Pro features</li></ul>
+      <ul><li>Everything in Coach Starter</li><li>Twice the roster</li><li>All Pro features for every fighter</li></ul>
       <button class="buy" data-plan="gym_starter">Choose Gym Starter</button>
     </div>
     <div class="plan">
       <div class="pn">Gym Pro</div><div class="pp" data-m="64.99" data-a="649.99">£64.99<small>/mo</small></div>
       <div class="pcap">Up to 25 fighters</div>
-      <ul><li>Everything in Gym Starter</li><li>Advanced analytics</li><li>Priority support</li></ul>
+      <ul><li>Everything in Gym Starter</li><li>Room for 25 fighters</li><li>Priority support</li></ul>
       <button class="buy" data-plan="gym_pro">Choose Gym Pro</button>
     </div>
     <div class="plan">
@@ -158,7 +203,7 @@
   </div>
 
   <p class="note">
-    Individual fighters subscribe inside the app — Solo Pro £3.99/mo or £39.99/yr, Undisputed £7.99/mo or £79.99/yr (two months free either way).<br>
+    Individual fighters subscribe inside the app — Solo Pro £3.99/mo or £39.99/yr, Undisputed £7.99/mo or £79.99/yr (save 16% either way).<br>
     Questions, or need more than 50 fighters? Email <a href="mailto:hello@apex-corner.com" style="color:var(--gold)">hello@apex-corner.com</a>.
   </p>
 </div>
@@ -211,13 +256,95 @@ function paintPrices() {
   });
 }
 
+/* ⛔ IT USED TO SAY "Looks right" TO ANY SIX CHARACTERS.
+   The code was only ever checked for SHAPE, so a typo passed, the page said
+   "Looks right", Stripe took the money, and the webhook then found no gym to
+   unlock: `no gym found with code X`, marked permanent, never retried. The gym
+   owner has paid and nothing happens. It is caught — it writes a billing_events
+   row and pushes Paul's phone — but catching it means Paul fixing it by hand
+   while a new customer sits there having paid for nothing.
+
+   So the code is now checked against a REAL GYM before they can pay, and the
+   gym's NAME is shown back. That also answers the question every payer actually
+   has: is this going to unlock MY gym?
+
+   gym_identity_by_code is granted to anon for exactly this kind of pre-sign-in
+   lookup, and is rate-limited server-side (60/IP/hour) — so lookups only fire
+   on a complete 6-character code, and every answer is cached. */
+const SUPA = 'https://jedojiigihbfvjdeaucd.supabase.co';
+const SUPA_KEY = 'sb_publishable_R4wM8NnGI5c-M7yNbKYL0g_n92Bunax';
+
+let checkedCode = null;      // the code the current verdict belongs to
+let gymName     = null;      // the real gym, once we know it
+let lookupBroke = false;     // the lookup itself failed, not the code
+const seen = new Map();      // code -> name | null, so retyping costs nothing
+let debounce;
+
+function setBuyable(on) {
+  document.querySelectorAll('.buy').forEach(b => { b.disabled = !on; });
+}
+
+async function lookup(c) {
+  if (seen.has(c)) return seen.get(c);
+  const r = await fetch(SUPA + '/rest/v1/rpc/gym_identity_by_code', {
+    method: 'POST',
+    headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY,
+               'Content-Type': 'application/json' },
+    body: JSON.stringify({ p_code: c })
+  });
+  if (!r.ok) throw new Error('lookup failed: ' + r.status);
+  const d = await r.json();
+  const row = Array.isArray(d) ? d[0] : d;
+  const name = row && row.name ? row.name : null;
+  seen.set(c, name);
+  return name;
+}
+
+function paintCode() {
+  const c = code();
+  if (!c) { msgEl.textContent = ''; msgEl.className = 'codemsg'; setBuyable(false); return; }
+  if (!valid()) {
+    msgEl.textContent = 'Gym codes are 6 characters (letters and numbers).';
+    msgEl.className = 'codemsg bad'; setBuyable(false); return;
+  }
+  if (c !== checkedCode) {
+    msgEl.textContent = 'Checking that code\u2026';
+    msgEl.className = 'codemsg checking'; setBuyable(false); return;
+  }
+  if (gymName) {
+    msgEl.textContent = '\u2713 ' + gymName + ' \u2014 choose a plan below.';
+    msgEl.className = 'codemsg ok'; setBuyable(true); return;
+  }
+  if (lookupBroke) {
+    /* ⛔ A FAILED LOOKUP MUST NOT COST A SALE. Offline, or our rate limit — the
+       code may well be perfectly good. Let them through and say so plainly,
+       rather than refusing a paying gym because our check could not run. */
+    msgEl.textContent = 'We could not check that code just now \u2014 you can still '
+      + 'carry on, and we will sort it if anything is wrong.';
+    msgEl.className = 'codemsg'; setBuyable(true); return;
+  }
+  msgEl.textContent = 'We cannot find a gym with that code. Check it on '
+    + 'Settings \u2192 your gym in the app.';
+  msgEl.className = 'codemsg bad'; setBuyable(false);
+}
+
 function refresh() {
-  const ok = valid();
-  msgEl.textContent = !code() ? ''
-    : ok ? '\u2713 Looks right \u2014 choose a plan below.'
-         : 'Gym codes are 6 characters (letters and numbers).';
-  msgEl.className = 'codemsg ' + (!code() ? '' : ok ? 'ok' : 'bad');
-  document.querySelectorAll('.buy').forEach(b => { b.disabled = !ok; });
+  paintCode();
+  const c = code();
+  clearTimeout(debounce);
+  if (!valid() || c === checkedCode) return;
+  debounce = setTimeout(async () => {
+    const asked = c;
+    try {
+      const name = await lookup(asked);
+      if (code() !== asked) return;              // they kept typing
+      checkedCode = asked; gymName = name; lookupBroke = false;
+    } catch (e) {
+      if (code() !== asked) return;
+      checkedCode = asked; gymName = null; lookupBroke = true;
+    }
+    paintCode();
+  }, 350);
 }
 
 codeEl.addEventListener('input', refresh);
