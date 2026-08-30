@@ -80,6 +80,12 @@
     font-size:14px;line-height:1.55;color:#D8D4CC}
   .alreadypaying b{display:block;margin-bottom:4px;color:#F0EBE1}
   .alreadypaying a{color:var(--gold,#D4A537)}
+
+  .portalbtn{display:inline-block;margin-top:12px;padding:11px 20px;border-radius:10px;
+    background:var(--gold,#D4A537);color:#111;font-weight:700;text-decoration:none;font-size:14.5px}
+  .portalbtn:hover{filter:brightness(1.07)}
+  .portalnote{display:block;margin-top:10px;font-size:12.5px;color:#9A948A;line-height:1.5}
+  .portalnote a{color:var(--gold,#D4A537)}
 </style>
 </head>
 <body>
@@ -131,11 +137,13 @@
        the only honest thing is to say so before they click, in the same place
        they are about to click. -->
   <div class="alreadypaying">
-    <b>Already on a plan and want to change it?</b>
+    <b>Already on a plan?</b>
     Don't buy a second one here — it would start a new subscription alongside your
-    current one and you would be charged for both. Email
-    <a href="mailto:hello@apex-corner.com?subject=Change%20my%20Bout%20IQ%20plan">hello@apex-corner.com</a>
-    and we will move you across, refund anything overlapping, and never double-charge you.
+    current one and you would be charged for both. Cancel the old one first and you
+    will never be double-charged.
+    <a class="portalbtn" href="https://billing.stripe.com/p/login/6oUbITamK1gUg6W8RQ2ZO00">Manage my subscription &rsaquo;</a>
+    <span class="portalnote">Use the email address you paid with — Stripe sends a sign-in link straight to it.
+      Stuck? <a href="mailto:hello@apex-corner.com?subject=Change%20my%20Bout%20IQ%20plan">hello@apex-corner.com</a></span>
   </div>
 
 
