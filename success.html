@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="boutiq-icon-apple-ready.png">
+<link rel="apple-touch-icon" href="boutiq-icon-apple-ready.png">
+<title>You're In — Bout IQ</title>
+<meta name="robots" content="noindex">
+<!-- ⛔ A £119.99 PAYMENT USED TO END ON A PAGE WE DO NOT CONTROL. Stripe took
+     the money and dropped the gym owner wherever its default went — no
+     confirmation in our voice, no next step, and nothing telling them the app
+     is now unlocked for their whole roster. The most expensive moment on the
+     site had the least thought in it. -->
+<style>
+:root{
+  --bg:#08080A; --panel:#141419; --bg2:#0E0E12; --line:rgba(255,255,255,.08);
+  --gold:#D4A537; --gold-l:#E7BE52; --gold-d:#B8901F;
+  --text:#F5F3EE; --muted:#9A968E; --faint:#A8A49C;
+  --r-card:18px; --r-btn:12px;
+  --sans:-apple-system,"Helvetica Neue","Segoe UI",Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 20px}
+img{max-width:100%;display:block}
+a{color:inherit}
+.card{width:100%;max-width:560px;text-align:center;position:relative}
+.card::before{content:"";position:absolute;inset:-40px -20px;pointer-events:none;
+  background:radial-gradient(60% 50% at 50% 0%, rgba(212,165,55,.14), transparent 70%)}
+/* Stacked lockup — glove ABOVE a centred wordmark, per the brand rule for
+   centred spaces. The bare wordmark is never the logo. */
+.lockup{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:30px}
+.lockup .lg{height:58px;width:auto}
+.lockup .lw{height:30px;width:auto}
+h1{position:relative;font-size:clamp(34px,7vw,50px);font-weight:900;letter-spacing:-1.6px;line-height:1.02}
+.sub{position:relative;color:var(--muted);font-size:17px;margin-top:14px}
+ol{position:relative;text-align:left;list-style:none;counter-reset:s;margin:34px 0 0;
+  background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);
+  border-radius:var(--r-card);padding:24px 24px 24px 22px}
+ol li{counter-increment:s;position:relative;padding-left:44px;margin-bottom:20px}
+ol li:last-child{margin-bottom:0}
+ol li::before{content:counter(s);position:absolute;left:0;top:1px;width:28px;height:28px;
+  border-radius:14px;background:rgba(212,165,55,.14);border:1px solid rgba(212,165,55,.35);
+  color:var(--gold);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+ol strong{display:block;font-size:16px;font-weight:800;margin-bottom:3px}
+ol span{color:var(--muted);font-size:14.5px}
+.btn{position:relative;display:inline-flex;align-items:center;gap:9px;margin-top:30px;
+  background:linear-gradient(180deg,var(--gold-l),var(--gold-d));color:#1a1200;font-weight:800;
+  font-size:16px;padding:15px 30px;border-radius:var(--r-btn);text-decoration:none;
+  box-shadow:0 10px 30px rgba(212,165,55,.28)}
+.foot{position:relative;color:var(--faint);font-size:13px;margin-top:26px;line-height:1.7}
+.foot a{color:var(--muted)}
+</style>
+
+<div class="card">
+  <div class="lockup">
+    <img class="lg" src="boutiq-glove.png" alt="">
+    <img class="lw" src="boutiq-wordmark.png" alt="Bout IQ">
+  </div>
+
+  <h1>You're In.</h1>
+  <p class="sub">Your gym is set up and every place on your plan is unlocked. Here's what to do next.</p>
+
+  <ol>
+    <li>
+      <strong>Open Bout IQ And Sign In</strong>
+      <span>Sign in with your coach account — the one that owns your gym.</span>
+    </li>
+    <li>
+      <strong>Your Roster Is Unlocked</strong>
+      <span>Your plan is attached to your gym, so every fighter on it gets the full app — heart-rate zones, AI meal scan, the make-weight planner. You pay once for the gym, not per fighter.</span>
+    </li>
+    <li>
+      <strong>Invite Your Fighters</strong>
+      <span>Settings → Your Gym Code → Send To Your Fighters. They enter that code when they sign up and land straight on your roster.</span>
+    </li>
+  </ol>
+
+  <a class="btn" href="/get">Open Bout IQ &rsaquo;</a>
+
+  <p class="foot">
+    Something not right? Email <a href="mailto:hello@apex-corner.com">hello@apex-corner.com</a> and we'll sort it.<br>
+    <a href="/">Back to Bout IQ</a> · <a href="/support.html">Support</a>
+  </p>
+</div>

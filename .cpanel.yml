@@ -14,6 +14,14 @@ deployment:
     - /bin/cp privacy.html    $DEPLOYPATH
     - /bin/cp terms.html      $DEPLOYPATH
     - /bin/cp 404.html        $DEPLOYPATH
+    # ⛔ ADDED 30 Aug 2026. This file copies BY NAME, one line per file, so a new
+    # page or folder that nobody adds here is simply never published — the site
+    # goes live pointing at things that 404, and it looks like a broken deploy
+    # rather than a missing line. success.html is the post-checkout page; shots/
+    # holds the product screenshots the landing page is built around.
+    - /bin/cp success.html    $DEPLOYPATH
+    - /bin/mkdir -p           $DEPLOYPATH/shots
+    - /bin/cp -R shots/.      $DEPLOYPATH/shots/
     - /bin/cp boutiq-glove.png          $DEPLOYPATH
     - /bin/cp boutiq-wordmark.png       $DEPLOYPATH
     - /bin/cp boutiq-icon-apple-ready.png $DEPLOYPATH

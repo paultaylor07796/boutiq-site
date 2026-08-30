@@ -2,3 +2,7 @@
 netlify.toml
 index.html.bak-*
 .DS_Store
+
+# local click-testing only — never deployed
+serve.js
+.claude/
