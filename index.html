@@ -249,22 +249,33 @@ nav .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
   stroke-linecap:round;stroke-linejoin:round}
 .feat .ico{margin-bottom:14px}
 
-/* ── Pricing: the voice toggle on the four gym cards ──────────────────────── */
-.vtoggle{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);
-  display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
-.vtoggle .sw{position:relative;width:38px;height:22px;border-radius:11px;background:#2C2C32;
-  border:1px solid var(--line);flex:none;transition:background .18s}
-.vtoggle .sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;
-  border-radius:8px;background:var(--muted);transition:transform .18s,background .18s}
-.vtoggle[aria-checked="true"] .sw{background:rgba(212,165,55,.35);border-color:var(--gold)}
-.vtoggle[aria-checked="true"] .sw::after{transform:translateX(16px);background:var(--gold)}
-.vtoggle .vt{font-size:12.5px;font-weight:800;color:var(--text);letter-spacing:-.1px}
-.vtoggle:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:8px}
-.vbullet{display:none;font-size:12.5px;color:var(--gold);padding-left:18px;position:relative;line-height:1.4;margin-top:7px}
+/* ── Pricing: one segmented control drives all four gym cards ───────────── */
+.segwrap{text-align:center;margin:-4px auto 22px}
+.seg{display:inline-flex;padding:4px;gap:4px;border-radius:14px;
+  background:var(--panel);border:1px solid var(--line)}
+.segbtn{appearance:none;border:0;cursor:pointer;font-family:inherit;
+  padding:9px 18px;border-radius:10px;background:transparent;color:var(--muted);
+  font-size:13px;font-weight:800;letter-spacing:-.1px;transition:background .18s,color .18s}
+.segbtn:hover{color:var(--text)}
+.segbtn.on{background:linear-gradient(180deg,var(--gold-l),var(--gold-d));color:#1a1200;
+  box-shadow:0 4px 14px rgba(212,165,55,.30),inset 0 1px 0 rgba(255,255,255,.4)}
+.segbtn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.segnote{color:var(--muted);font-size:13px;margin-top:11px;max-width:520px;
+  margin-inline:auto;line-height:1.5}
+@media(max-width:460px){.seg{flex-direction:column;width:100%}
+  .segwrap .seg{display:flex}.segbtn{width:100%}}
+.vbullet{display:none;font-size:12.5px;color:var(--gold);padding-left:18px;position:relative;
+  line-height:1.4;margin-top:7px}
 .vbullet::before{content:"✓";position:absolute;left:0;font-weight:800}
 .plan[data-voice="on"] .vbullet{display:block}
 
 /* ── Proof slot — built, and deliberately empty until the quotes are real ─── */
+.voicehint{max-width:760px;margin:-6px auto 20px;text-align:center;color:var(--muted);
+  font-size:13.5px;line-height:1.55}
+.voicehint strong{color:var(--gold);font-weight:800;white-space:nowrap}
+.vh-chip{display:inline-block;background:var(--gold);color:#1a1200;font-size:9.5px;
+  font-weight:900;letter-spacing:.7px;text-transform:uppercase;padding:3px 9px;
+  border-radius:20px;margin-right:8px;vertical-align:1px}
 .perf{font-size:12px;color:var(--text);font-weight:700;margin:2px 0 2px}
 .perf .pf{color:var(--gold);font-weight:900}
 .plan li.goldli{color:var(--gold);font-weight:700}
@@ -527,6 +538,20 @@ nav .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
          same ladder, printed twice. It is now a toggle ON the four gym cards:
          same ladder, half the reading. -->
     <div class="pgroup-label">For Coaches &amp; Gyms</div>
+    <!-- ⛔ THIS WAS FOUR SEPARATE SWITCHES, ONE PER CARD. Collapsing the four
+         Gym Undisputed cards into a per-card toggle halved the reading, but it
+         put £24.99–£174.99 of product behind a small control at the bottom of
+         each card — and repeated the same furniture four times. One segmented
+         control above the group is the pattern every serious pricing page uses:
+         it is discoverable before you start scanning, it says the choice exists,
+         and it flips all four prices together so the ladder stays comparable. -->
+    <div class="segwrap">
+      <div class="seg" role="radiogroup" aria-label="Plan type">
+        <button type="button" class="segbtn on" role="radio" aria-checked="true"  data-voice-mode="off">The App</button>
+        <button type="button" class="segbtn"    role="radio" aria-checked="false" data-voice-mode="on">+ Voice For Every Fighter</button>
+      </div>
+      <p class="segnote">Voice-everything and 15 AI meal scans a day, for every fighter on your roster.</p>
+    </div>
     <div class="plans">
       <div data-href="subscribe.html" class="plan pop" data-voice="off"
            data-m="£16.99" data-pf="£3.40" data-vpf="£5.00" data-n="Coach Starter" data-vn="Undisputed · 5" data-plan="coach_starter" data-vplan="gym_und_5" data-y="£169.99" data-vm="£24.99" data-vy="£249.99">
@@ -543,9 +568,6 @@ nav .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
         <div class="pyear">or <span class="amty">£169.99</span>/yr — pay 10 months, get 12</div>
         <ul><li>Full coach dashboard</li><li>Team calendar</li><li>Multiple coach roles</li><li>Private notes &amp; invites</li><li>All Pro features</li></ul>
         <div class="vbullet">Voice-everything and 15 AI meal scans a day, for every fighter</div>
-        <div class="vtoggle" role="switch" aria-checked="false" tabindex="0">
-          <span class="sw"></span><span class="vt">＋ Voice For The Whole Gym</span>
-        </div>
         <a class="pbtn" href="subscribe.html">Choose This Plan &rsaquo;</a>
       </div>
       <div data-href="subscribe.html" class="plan" data-voice="off"
@@ -555,11 +577,8 @@ nav .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
         <div class="pcap">Up to 10 fighters</div>
         <div class="perf"><span class="pf">£3.20</span> per fighter, per month</div>
         <div class="pyear">or <span class="amty">£319.99</span>/yr — pay 10 months, get 12</div>
-        <ul><li>Everything in Coach Starter</li><li>Twice the roster — up to 10</li><li>All Pro features for every fighter</li></ul>
+        <ul><li class="ladderli" data-w="Everything in Coach Starter" data-vw="Everything in Undisputed · 5">Everything in Coach Starter</li><li>Twice the roster — up to 10</li><li>All Pro features for every fighter</li></ul>
         <div class="vbullet">Voice-everything and 15 AI meal scans a day, for every fighter</div>
-        <div class="vtoggle" role="switch" aria-checked="false" tabindex="0">
-          <span class="sw"></span><span class="vt">＋ Voice For The Whole Gym</span>
-        </div>
         <a class="pbtn" href="subscribe.html">Choose This Plan &rsaquo;</a>
       </div>
       <div data-href="subscribe.html" class="plan" data-voice="off"
@@ -569,11 +588,8 @@ nav .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
         <div class="pcap">Up to 25 fighters</div>
         <div class="perf"><span class="pf">£2.60</span> per fighter, per month</div>
         <div class="pyear">or <span class="amty">£649.99</span>/yr — pay 10 months, get 12</div>
-        <ul><li>Everything in Gym Starter</li><li>Room for 25 fighters</li><li>Priority support</li></ul>
+        <ul><li class="ladderli" data-w="Everything in Gym Starter" data-vw="Everything in Undisputed · 10">Everything in Gym Starter</li><li>Room for 25 fighters</li><li>Priority support</li></ul>
         <div class="vbullet">Voice-everything and 15 AI meal scans a day, for every fighter</div>
-        <div class="vtoggle" role="switch" aria-checked="false" tabindex="0">
-          <span class="sw"></span><span class="vt">＋ Voice For The Whole Gym</span>
-        </div>
         <a class="pbtn" href="subscribe.html">Choose This Plan &rsaquo;</a>
       </div>
       <div data-href="subscribe.html" class="plan" data-voice="off"
@@ -588,13 +604,10 @@ nav .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
         <div class="pp"><span class="amt">£119.99</span><small>/mo</small></div>
         <div class="pcap">Up to 50 fighters</div>
         <div class="perf"><span class="pf">£2.40</span> per fighter, per month</div>
-        <div class="valuewhy">50 places at £2.40 each — the lowest price per fighter we do. Works out best if your gym is a big one.</div>
+        <div class="valuewhy" data-w="50 places at £2.40 each — the lowest price per fighter we do. Works out best if your gym is a big one." data-vw="50 places at £3.50 each — the lowest price per fighter with voice for everyone. Works out best if your gym is a big one.">50 places at £2.40 each — the lowest price per fighter we do. Works out best if your gym is a big one.</div>
         <div class="pyear">or <span class="amty">£1,199.99</span>/yr — pay 10 months, get 12</div>
-        <ul><li>Everything in Gym Pro</li><li>White-glove onboarding</li><li>Dedicated support</li><li>We set your gym up for you</li></ul>
+        <ul><li class="ladderli" data-w="Everything in Gym Pro" data-vw="Everything in Undisputed · 25">Everything in Gym Pro</li><li>White-glove onboarding</li><li>Dedicated support</li><li>We set your gym up for you</li></ul>
         <div class="vbullet">Voice-everything and 15 AI meal scans a day, for every fighter</div>
-        <div class="vtoggle" role="switch" aria-checked="false" tabindex="0">
-          <span class="sw"></span><span class="vt">＋ Voice For The Whole Gym</span>
-        </div>
         <a class="pbtn" href="subscribe.html">Choose This Plan &rsaquo;</a>
       </div>
     </div>
@@ -785,55 +798,63 @@ document.querySelectorAll('.plan[data-href]').forEach(function (card) {
 
 });
 
-/* ── + VOICE FOR THE WHOLE GYM ──────────────────────────────────────────────
-   Swaps the card between its base tier and the matching Gym Undisputed price.
-   ⛔ The button and the card's own link BOTH have to move. A toggle that
-   changes the price on screen while the button still points at the old plan is
-   the wrong-price-charged fault, on a webpage instead of in the app. */
-document.querySelectorAll('.plan[data-voice]').forEach(function (card) {
-  var t = card.querySelector('.vtoggle');
-  if (!t) return;
-  var amt  = card.querySelector('.amt');
-  var amty = card.querySelector('.amty');
-  var btn  = card.querySelector('a.pbtn');
+/* ── ONE CONTROL, FOUR CARDS ────────────────────────────────────────────────
+   Swaps every gym card between its base tier and the matching Gym Undisputed
+   plan. ⛔ The NAME, the price, the yearly price, the per-fighter figure and
+   BOTH links all have to move together. They did not before: the price changed
+   and the name did not, so a card read "Gym Elite — £174.99/mo" while
+   subscribe.html, one click later, says Gym Elite is £119.99 — and the button
+   still fired the £119.99 plan, without gym-wide voice. */
+(function () {
+  var cards = [].slice.call(document.querySelectorAll('.plan[data-voice]'));
+  var btns  = [].slice.call(document.querySelectorAll('.segbtn'));
+  if (!cards.length || !btns.length) return;
 
-  var nm = card.querySelector('.pnm');
-  var pf = card.querySelector('.pf');
-  var apply = function (on) {
+  function paint(card, on) {
+    var d = card.dataset;
+    var set = function (sel, val) {
+      var el = card.querySelector(sel);
+      if (el && val) el.textContent = val;
+    };
     card.setAttribute('data-voice', on ? 'on' : 'off');
-    t.setAttribute('aria-checked', on ? 'true' : 'false');
-    amt.textContent  = on ? card.dataset.vm : card.dataset.m;
-    amty.textContent = on ? card.dataset.vy : card.dataset.y;
-    /* ⛔ THE NAME HAS TO MOVE WITH THE PRICE. It did not, and the result was a
-       card reading "Gym Elite — £174.99/mo" while subscribe.html, one click
-       later, says Gym Elite is £119.99. Same product name, two prices, on the
-       same site. Worse, the buyer landed on the plain top of subscribe.html
-       and the first thing they saw was a card literally called "Gym Elite"
-       whose button charges £119.99 for the plan WITHOUT gym-wide voice — the
-       roster size and the voice choice they had just made both thrown away.
-       £174.99 is Gym Undisputed · 50, so the card must say so. */
-    if (nm) nm.textContent = on ? card.dataset.vn : card.dataset.n;
-    if (pf) pf.textContent = on ? card.dataset.vpf : card.dataset.pf;
-    /* ⛔ AND THE LINK POINTED AT #undisputed, WHICH DOES NOT EXIST. Nothing on
-       subscribe.html carries that id and it has no hash handling at all, so
-       the fragment was inert — a dead anchor that looked like a working one.
-       The plan now travels as a query parameter subscribe.html can act on, and
-       the real anchor id has been added to the group heading as a fallback. */
-    var plan = on ? card.dataset.vplan : card.dataset.plan;
-    var href = 'subscribe.html?plan=' + plan + '#' + (on ? 'undisputed' : 'gymplans');
+    set('.pnm',  on ? d.vn  : d.n);
+    set('.amt',  on ? d.vm  : d.m);
+    set('.amty', on ? d.vy  : d.y);
+    set('.pf',   on ? d.vpf : d.pf);
+    /* ⛔ THESE TWO CONTRADICTED THE CARD THEY SAT ON. In the voice state Gym
+       Elite still read "50 places at £2.40 each" while the price above it said
+       £174.99 (£3.50 a fighter), and cards renamed "Undisputed · 10" still had
+       a bullet saying "Everything in Coach Starter". Anything that quotes a
+       number or a plan name has to move when the plan moves. */
+    card.querySelectorAll('[data-vw]').forEach(function (el) {
+      el.textContent = on ? el.dataset.vw : el.dataset.w;
+    });
+    /* The plan travels as a query parameter subscribe.html acts on, plus a real
+       anchor. It used to be "#undisputed", an id that existed nowhere on that
+       page — an inert fragment that looked like a working link. */
+    var href = 'subscribe.html?plan=' + (on ? d.vplan : d.plan) +
+               '#' + (on ? 'undisputed' : 'gymplans');
     card.dataset.href = href;
+    var btn = card.querySelector('a.pbtn');
     if (btn) btn.setAttribute('href', href);
-  };
-  apply(false);   // paint from the data attributes so markup and JS cannot drift
+  }
 
-  var flip = function (e) {
-    e.stopPropagation();
-    apply(card.getAttribute('data-voice') !== 'on');
-  };
-  t.addEventListener('click', flip);
-  t.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(e); }
+  function select(on) {
+    cards.forEach(function (c) { paint(c, on); });
+    btns.forEach(function (b) {
+      var isOn = (b.dataset.voiceMode === 'on') === on;
+      b.classList.toggle('on', isOn);
+      b.setAttribute('aria-checked', isOn ? 'true' : 'false');
+    });
+  }
+
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () { select(b.dataset.voiceMode === 'on'); });
   });
-});
+
+  /* Paint from the data attributes on load, so the markup and the script can
+     never drift apart. */
+  select(false);
+})();
 </script>
 </html>
