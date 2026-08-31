@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Subscribe · Bout IQ</title>
-<meta name="description" content="Put your whole gym on Bout IQ. Choose a plan and every fighter on your roster is unlocked.">
+<meta name="description" content="Put Your Whole Gym On Bout IQ. Choose a plan and every fighter on your roster is unlocked.">
 <link rel="icon" href="boutiq-icon-apple-ready.png">
 <style>
   :root{ --bg:#0D0D0F; --surface:#18181B; --elev:#222228; --border:#2C2C32;
@@ -80,6 +80,11 @@
     font-size:14px;line-height:1.55;color:#D8D4CC}
   .alreadypaying b{display:block;margin-bottom:4px;color:#F0EBE1}
   .alreadypaying a{color:var(--gold,#D4A537)}
+  /* ⛔ THIS BUTTON WAS INVISIBLE. `.alreadypaying a` (specificity 0-1-1) beat
+     `.portalbtn` (0-1-0), so the button rendered gold text on a gold fill —
+     computed colour and background both rgb(212,165,55), contrast 1:1. It is
+     the control that stops somebody paying twice, and it could not be read. */
+  .alreadypaying a.portalbtn{color:#111}
 
   .portalbtn{display:inline-block;margin-top:12px;padding:11px 20px;border-radius:10px;
     background:var(--gold,#D4A537);color:#111;font-weight:700;text-decoration:none;font-size:14.5px}
@@ -98,7 +103,7 @@
 <header><div class="wrap"><a href="index.html"><img class="gl" src="boutiq-glove.png" alt=""><img src="boutiq-wordmark.png" alt="Bout IQ"></a></div></header>
 
 <div class="wrap">
-  <h1>Put your whole gym <span>on Bout IQ</span></h1>
+  <h1>Put Your Whole Gym <span>On Bout IQ</span></h1>
   <p class="lede">One subscription covers your entire roster. Every fighter and every coach in your gym
      is unlocked automatically — no separate sign-ups, no per-person faff.</p>
 
@@ -167,7 +172,6 @@
       <button class="buy" data-plan="coach_starter">Choose Coach Starter</button>
     </div>
     <div class="plan pop">
-      <div class="poppill">MOST POPULAR</div>
       <div class="pn">Gym Starter</div><div class="pp" data-m="31.99" data-a="319.99">£31.99<small>/mo</small></div>
       <div class="pcap">Up to 10 fighters</div>
       <ul><li>Everything in Coach Starter</li><li>Twice the roster</li><li>All Pro features for every fighter</li></ul>
@@ -196,7 +200,6 @@
       <button class="buy" data-plan="gym_und_5">Choose Undisputed · 5</button>
     </div>
     <div class="plan pop">
-      <div class="poppill">BEST VALUE</div>
       <div class="pn">Undisputed · 10</div><div class="pp" data-m="44.99" data-a="449.99">£44.99<small>/mo</small></div>
       <div class="pcap">Up to 10 fighters · £4.50 each</div>
       <ul><li>Everything in the gym tiers</li><li>Voice-everything for every fighter</li><li>AI for every meal, every day (15 scans a day)</li></ul>
