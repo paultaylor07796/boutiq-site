@@ -15,7 +15,7 @@
        -webkit-font-smoothing:antialiased}
   .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
   header{padding:26px 0;border-bottom:1px solid var(--border)}
-  /* THE LOCKUP: glove left, name right. */
+  
   header a{display:flex;align-items:center;gap:10px;text-decoration:none}
   header img.gl{height:34px;width:auto;display:block}
   header img{height:26px;display:block}
@@ -23,7 +23,6 @@
   h1 span{color:var(--gold)}
   .lede{color:var(--dim);font-size:17px;line-height:1.6;max-width:620px;margin:0 0 30px}
 
-  /* Step 1 — gym code */
   .step{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:26px}
   .steplabel{font-size:11px;font-weight:900;letter-spacing:1.6px;color:var(--gold);margin-bottom:10px}
   .steph{font-size:19px;font-weight:800;margin:0 0 6px}
@@ -35,7 +34,6 @@
   .codemsg{font-size:13px;margin-top:10px;min-height:18px}
   .ok{color:#10B981} .bad{color:#EF4444}
 
-  /* Plans */
   .grouplabel{font-size:12px;font-weight:900;letter-spacing:1.4px;color:var(--faint);
        text-transform:uppercase;margin:30px 0 14px}
   .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
@@ -56,7 +54,6 @@
        font-family:inherit}
   .buy[disabled]{opacity:.4;cursor:not-allowed}
 
-  /* Billing cycle toggle */
   .billing{display:inline-flex;background:var(--elev);border:1px solid var(--border);
        border-radius:999px;padding:4px;margin:22px 0 0;gap:4px}
   .bseg{background:none;border:none;color:var(--dim);font-family:inherit;font-size:14px;
@@ -80,10 +77,7 @@
     font-size:14px;line-height:1.55;color:#D8D4CC}
   .alreadypaying b{display:block;margin-bottom:4px;color:#F0EBE1}
   .alreadypaying a{color:var(--gold,#D4A537)}
-  /* ⛔ THIS BUTTON WAS INVISIBLE. `.alreadypaying a` (specificity 0-1-1) beat
-     `.portalbtn` (0-1-0), so the button rendered gold text on a gold fill —
-     computed colour and background both rgb(212,165,55), contrast 1:1. It is
-     the control that stops somebody paying twice, and it could not be read. */
+  
   .alreadypaying a.portalbtn{color:#111}
 
   .portalbtn{display:inline-block;margin-top:12px;padding:11px 20px;border-radius:10px;
@@ -107,12 +101,6 @@
   <p class="lede">One subscription covers your entire roster. Every fighter and every coach in your gym
      is unlocked automatically — no separate sign-ups, no per-person faff.</p>
 
-  <!-- ⛔ STEP 0 — WITHOUT THIS, A BRAND-NEW GYM HAD NOWHERE TO GO.
-       This page opened by demanding a gym code "from the app". A gym owner who
-       has just found us has never opened the app, so they have no code, and the
-       page gave them no way to get one. That is the exact audience the pricing
-       is written for: every gym that is not already a customer hit a wall here
-       and had to email, or leave. -->
   <div class="step step0">
     <div class="steplabel">NEW HERE?</div>
     <div class="steph">Get your gym code first — it is free and takes two minutes</div>
@@ -124,7 +112,6 @@
     <p class="stepsub" style="margin-top:14px">Already set your gym up? Carry straight on below.</p>
   </div>
 
-  <!-- STEP 1 — gym code -->
   <div class="step">
     <div class="steplabel">STEP 1</div>
     <div class="steph">Enter your gym code</div>
@@ -135,18 +122,10 @@
     <div class="codemsg" id="codemsg"></div>
   </div>
 
-  <!-- STEP 2 — plans -->
   <div class="steplabel" style="margin-bottom:6px">STEP 2</div>
   <div class="steph" style="font-size:19px;font-weight:800;margin-bottom:4px">Choose your plan</div>
   <p class="stepsub" style="margin-bottom:0">Cancel anytime. Pay yearly and save 16%. Prices exclude VAT where applicable.</p>
 
-  <!-- ⛔ THE MOST EXPENSIVE THING THIS PAGE COULD DO IS LET SOMEBODY BUY TWICE.
-       Stripe Payment Links create a NEW customer on every checkout, so a gym
-       already on a plan who picks a bigger one here starts a SECOND
-       subscription and keeps paying both — nothing cancels the first, and our
-       webhook cannot tell the difference. Until there is a self-serve portal,
-       the only honest thing is to say so before they click, in the same place
-       they are about to click. -->
   <div class="alreadypaying">
     <b>Already on a plan?</b>
     Don't buy a second one here — it would start a new subscription alongside your
@@ -156,7 +135,6 @@
     <span class="portalnote">Use the email address you paid with — Stripe sends a sign-in link straight to it.
       Stuck? <a href="mailto:hello@apex-corner.com?subject=Change%20my%20Bout%20IQ%20plan">hello@apex-corner.com</a></span>
   </div>
-
 
   <div class="billing">
     <button class="bseg on" data-cycle="monthly">Monthly</button>
@@ -230,9 +208,6 @@
 </div></footer>
 
 <script>
-// ── Stripe Payment Links, one per plan per billing cycle. Paste each URL from
-//    the Stripe dashboard (Payment links). A blank entry makes the button ask
-//    the visitor to get in touch rather than breaking.
 const LINKS = {
   monthly: {
     coach_starter: 'https://buy.stripe.com/6oUbITamK1gUg6W8RQ2ZO00',
@@ -264,7 +239,6 @@ const msgEl  = document.getElementById('codemsg');
 function code()  { return (codeEl.value || '').trim().toUpperCase(); }
 function valid() { return /^[A-Z0-9]{6}$/.test(code()); }
 
-/* Swap every headline price between the monthly and yearly figure. */
 function paintPrices() {
   document.querySelectorAll('.pp').forEach(el => {
     const amount = cycle === 'annual' ? el.dataset.a : el.dataset.m;
@@ -273,21 +247,6 @@ function paintPrices() {
   });
 }
 
-/* ⛔ IT USED TO SAY "Looks right" TO ANY SIX CHARACTERS.
-   The code was only ever checked for SHAPE, so a typo passed, the page said
-   "Looks right", Stripe took the money, and the webhook then found no gym to
-   unlock: `no gym found with code X`, marked permanent, never retried. The gym
-   owner has paid and nothing happens. It is caught — it writes a billing_events
-   row and pushes Paul's phone — but catching it means Paul fixing it by hand
-   while a new customer sits there having paid for nothing.
-
-   So the code is now checked against a REAL GYM before they can pay, and the
-   gym's NAME is shown back. That also answers the question every payer actually
-   has: is this going to unlock MY gym?
-
-   gym_identity_by_code is granted to anon for exactly this kind of pre-sign-in
-   lookup, and is rate-limited server-side (60/IP/hour) — so lookups only fire
-   on a complete 6-character code, and every answer is cached. */
 const SUPA = 'https://jedojiigihbfvjdeaucd.supabase.co';
 const SUPA_KEY = 'sb_publishable_R4wM8NnGI5c-M7yNbKYL0g_n92Bunax';
 
@@ -333,9 +292,7 @@ function paintCode() {
     msgEl.className = 'codemsg ok'; setBuyable(true); return;
   }
   if (lookupBroke) {
-    /* ⛔ A FAILED LOOKUP MUST NOT COST A SALE. Offline, or our rate limit — the
-       code may well be perfectly good. Let them through and say so plainly,
-       rather than refusing a paying gym because our check could not run. */
+    
     msgEl.textContent = 'We could not check that code just now \u2014 you can still '
       + 'carry on, and we will sort it if anything is wrong.';
     msgEl.className = 'codemsg'; setBuyable(true); return;
@@ -382,19 +339,6 @@ document.querySelectorAll('.buy').forEach(btn => {
       alert('Online checkout for this plan is opening shortly. Email hello@apex-corner.com and we\'ll set you up today.');
       return;
     }
-    // Pass the gym code AND the plan that was clicked, as ABC123__gym_und_25.
-    // The webhook reads the code to unlock exactly the right gym, and the plan
-    // to know how many fighter seats they bought.
-    //
-    // ⛔ THE PLAN HAS TO TRAVEL THIS WAY. Stripe only tells the webhook a price
-    // ID, and matching those needs a secret that was never set — which is why
-    // every paying gym was uncapped until 29 Aug 2026. This page is the one
-    // place that already knows which plan was chosen, so it says so.
-    //
-    // ⛔ Underscores and alphanumerics ONLY. Stripe SILENTLY DROPS a
-    // client_reference_id containing anything else — the gym code would vanish
-    // with it and the payment would land with nothing to match it to. Gym codes
-    // are [A-Z0-9]{6}, so the last '__' always separates the two cleanly.
     const sep = url.includes('?') ? '&' : '?';
     const ref = code() + '__' + btn.dataset.plan;
     window.location.href = url + sep + 'client_reference_id=' + encodeURIComponent(ref);
@@ -408,17 +352,7 @@ refresh();
 </html>
 
 <script>
-/* ⛔ THE PRICING PAGE USED TO THROW AWAY THE CHOICE THE BUYER HAD JUST MADE.
-   index.html sends people here having already picked a roster size and decided
-   whether they want voice for the whole gym — and this page opened at the top,
-   showing every plan, with the chosen one nowhere in particular. Worse, the
-   link carried "#undisputed", an id that did not exist on this page at all, so
-   the fragment was inert and a gym owner who chose Undisputed · 50 landed
-   looking at a card called "Gym Elite" at a different price.
 
-   Both ids now exist above, and the plan travels as ?plan=<slug> so the right
-   card can be scrolled to and marked. Falls back silently if the parameter is
-   missing or unrecognised — this must never be able to break the page. */
 (function () {
   try {
     var want = new URLSearchParams(location.search).get('plan');
@@ -429,6 +363,6 @@ refresh();
     if (!card) return;
     card.classList.add('chosen');
     setTimeout(function () { card.scrollIntoView({block:'center'}); }, 60);
-  } catch (e) { /* never let a query string break checkout */ }
+  } catch (e) {  }
 })();
 </script>

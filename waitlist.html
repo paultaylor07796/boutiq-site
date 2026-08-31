@@ -21,12 +21,12 @@
 
   nav{position:sticky;top:0;z-index:50;background:rgba(8,8,10,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
   nav .row{max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
-  /* THE LOCKUP: glove left, name right. The wordmark alone is half a logo. */
+  
   .brand{display:flex;align-items:center;gap:9px;}
   .brand .gl{height:30px;width:auto;display:block;}
   .brand .wm{height:22px;display:block;}
   .navback{font-size:14px;color:var(--muted);font-weight:700;}
-  /* Hero has vertical room, so the STACKED lockup: glove above the name. */
+  
   .heroglove{width:min(112px,30%);height:auto;display:block;margin:0 auto 14px;filter:drop-shadow(0 10px 30px rgba(212,165,55,.28));}
   .herowm{width:min(220px,58%);height:auto;display:block;margin:0 auto 16px;filter:drop-shadow(0 8px 26px rgba(212,165,55,.22));}
 
@@ -94,9 +94,7 @@
   </header>
 
   <div class="card">
-    <!-- Signups go to our own Supabase table, so this form works on any host.
-         It used to be a Netlify Form, which meant the entries lived in someone
-         else's dashboard and the form would have died the day the site moved. -->
+    
     <form id="waitlistForm">
       <p class="hp"><label>Don't fill this in <input name="bot-field"></label></p>
 
@@ -157,9 +155,6 @@
 </div>
 
 <script>
-  // The publishable key. Safe in a public page by design — the waitlist table
-  // grants anon INSERT and nothing else, so this can add you to the list but
-  // cannot read anybody back off it.
   var SUPABASE_URL = 'https://jedojiigihbfvjdeaucd.supabase.co';
   var SUPABASE_KEY = 'sb_publishable_R4wM8NnGI5c-M7yNbKYL0g_n92Bunax';
 
@@ -169,8 +164,6 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    // Honeypot: a real person never fills a hidden field. Pretend it worked so
-    // a bot has nothing to learn from the response.
     if (form.querySelector('[name="bot-field"]').value) {
       form.style.display = 'none';
       document.getElementById('successMsg').style.display = 'block';
@@ -202,9 +195,6 @@
       body: JSON.stringify(row)
     })
     .then(function (res) {
-      // The old version showed "You're On The List" for ANY response, so a 404
-      // looked exactly like success. That is how this form shipped broken once.
-      // Check the status.
       if (!res.ok) { throw new Error('HTTP ' + res.status); }
       form.style.display = 'none';
       document.getElementById('successMsg').style.display = 'block';
