@@ -36,7 +36,7 @@
   #     https://apps.apple.com/gb/app/id6785041415
   # and deploy. Every link ever sent, including the old ones, starts working.
   # Until then it must stay on TestFlight. CLICK IT before calling it done.
-  RewriteRule ^get/?$ https://testflight.apple.com/join/jrR5KQ2A [R=302,L]
+  RewriteRule ^get/?$ https://apps.apple.com/gb/app/id6785041415 [R=302,L]
 
   # Pretty URLs: /privacy -> /privacy.html, only when the file really exists.
   RewriteCond %{REQUEST_FILENAME} !-f
