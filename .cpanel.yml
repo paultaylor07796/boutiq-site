@@ -28,3 +28,6 @@ deployment:
     - /bin/cp .htaccess       $DEPLOYPATH
     - /bin/cp robots.txt      $DEPLOYPATH
     - /bin/cp sitemap.xml     $DEPLOYPATH
+    # app-ads.txt — AdMob reads this from the App Store developer website to verify
+    # the app is ours (added 8 Sep 2026, launch day). Without it: "Limited ad serving".
+    - /bin/cp app-ads.txt     $DEPLOYPATH
