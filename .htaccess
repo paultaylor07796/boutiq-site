@@ -38,6 +38,10 @@
   # Until then it must stay on TestFlight. CLICK IT before calling it done.
   RewriteRule ^get/?$ https://apps.apple.com/gb/app/id6785041415 [R=302,L]
 
+  # /auth/open — where every Supabase email link lands (confirm + reset). It
+  # hands the tokens to the app; see auth-open.html. Query string carries over.
+  RewriteRule ^auth/open/?$ /auth-open.html [L]
+
   # Pretty URLs: /privacy -> /privacy.html, only when the file really exists.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

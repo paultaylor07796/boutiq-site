@@ -31,3 +31,5 @@ deployment:
     # app-ads.txt — AdMob reads this from the App Store developer website to verify
     # the app is ours (added 8 Sep 2026, launch day). Without it: "Limited ad serving".
     - /bin/cp app-ads.txt     $DEPLOYPATH
+    # auth-open.html — the landing page for confirm / reset email links (10 Sep).
+    - /bin/cp auth-open.html  $DEPLOYPATH

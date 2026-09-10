@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Opening Bout IQ</title>
+<!--
+  THE LANDING PAD FOR EVERY EMAIL LINK — 10 Sep 2026.
+
+  Supabase sends the person here after they tap Confirm / Reset in an email,
+  with the session tokens in the URL fragment (or a ?code= for PKCE). This page
+  hands them straight to the app (boutiq://auth/confirm or /reset) and, when it
+  cannot — Gmail's in-app browser, a desktop, the app not installed — says so
+  in plain words with a button, instead of a blank tab.
+
+  Nothing here talks to a server. The tokens never leave the URL.
+-->
+<style>
+  :root{--bg:#0C0C0E;--card:#141416;--line:#2A2A30;--gold:#D4A537;--text:#F4F1EA;--sub:#C9C5BD;--faint:#8E8A83}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--text);font-family:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;min-height:100%}
+  main{max-width:520px;margin:0 auto;padding:40px 20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 24px}
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  .brand img{display:block}
+  h1{font-size:24px;line-height:1.2;font-weight:800;margin-bottom:12px}
+  p{font-size:16px;line-height:1.55;color:var(--sub)}
+  .btn{display:inline-block;margin-top:22px;padding:15px 26px;border-radius:12px;background:var(--gold);color:#0C0C0E;font-weight:800;font-size:16px;text-decoration:none}
+  .small{margin-top:18px;font-size:13px;color:var(--faint)}
+  .small a{color:var(--gold)}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <div class="brand">
+      <img src="/boutiq-glove.png" width="44" height="32" alt="">
+      <img src="/boutiq-wordmark.png" width="122" height="25" alt="BOUT-IQ">
+    </div>
+    <div id="opening">
+      <h1 id="title">Opening Bout IQ…</h1>
+      <p id="lead">If the app doesn't open by itself, tap the button.</p>
+      <a id="open" class="btn" href="#">Open Bout IQ</a>
+      <p class="small" id="hint"></p>
+    </div>
+    <div id="desktop" hidden>
+      <h1>Open this on your phone</h1>
+      <p>This link finishes inside the Bout IQ app, so it needs to be tapped on the phone the app is on. Open the same email there and tap the button again.</p>
+      <p class="small">Don't have the app yet? <a href="https://apex-corner.com/get">Get Bout IQ</a></p>
+    </div>
+    <div id="broken" hidden>
+      <h1>This link has already been used</h1>
+      <p>Or it has expired — they work for one hour. Open Bout IQ and ask for a new one.</p>
+      <p class="small"><a href="https://apex-corner.com/get">Get Bout IQ</a></p>
+    </div>
+  </div>
+</main>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var next = (q.get('next') === 'reset') ? 'reset' : 'confirm';
+  var hash = location.hash || '';
+  var code = q.get('code');
+  var err  = q.get('error') || q.get('error_description') || (/error/.test(hash) ? hash : '');
+  var ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (err) { show('broken'); return; }
+  if (!ios) { show('desktop'); return; }
+
+  // Carry whatever Supabase sent: implicit tokens live in the fragment, a PKCE
+  // code in the query. The app's own parser handles both shapes.
+  var target = 'boutiq://auth/' + next + (code ? '?code=' + encodeURIComponent(code) : '') + hash;
+  var a = document.getElementById('open');
+  a.setAttribute('href', target);
+  document.getElementById('title').textContent = next === 'reset' ? 'Opening Bout IQ to reset your password…' : 'Opening Bout IQ…';
+  document.getElementById('hint').innerHTML = 'Nothing happening? The app may not be installed on this phone — <a href="https://apex-corner.com/get">get Bout IQ</a>, then tap the email link again.';
+  try { location.href = target; } catch (e) {}
+
+  function show(id) {
+    document.getElementById('opening').hidden = true;
+    document.getElementById(id).hidden = false;
+  }
+})();
+</script>
+</body>
+</html>
