@@ -111,6 +111,18 @@
     return;
   }
 
+  // ⛔ A reload or a restored tab after the scrub above lands here with no
+  // tokens. Never the "may not be installed" screen for that: just send them
+  // back to the app to log in (the app has already let them in, or will).
+  if (next === 'confirm' && !hasTokens) {
+    if (!ios) { show('desktop'); return; }
+    document.getElementById('title').textContent = 'Open Bout IQ and log in';
+    document.getElementById('lead').textContent = 'Your link has done its job. Open the app and log in with your email.';
+    document.getElementById('open').setAttribute('href', 'boutiq://');
+    document.title = 'Open Bout IQ';
+    return;
+  }
+
   if (!ios) { show('desktop'); return; }
 
   var a = document.getElementById('open');
