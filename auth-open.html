@@ -29,6 +29,9 @@
   .btn{display:inline-block;margin-top:22px;padding:15px 26px;border-radius:12px;background:var(--gold);color:#0C0C0E;font-weight:800;font-size:16px;text-decoration:none}
   .small{margin-top:18px;font-size:13px;color:var(--faint)}
   .small a{color:var(--gold)}
+  .tick{display:flex;align-items:center;gap:10px;color:#4ADE80;font-size:15px;font-weight:700;margin-bottom:14px}
+  .tick span{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#4ADE80;color:#0C0C0E;font-size:16px;font-weight:900}
+  .btn.big{display:block;text-align:center;font-size:18px;padding:18px 26px}
   [hidden]{display:none!important}
 </style>
 </head>
@@ -44,6 +47,18 @@
       <p id="lead">If the app doesn't open by itself, tap the button.</p>
       <a id="open" class="btn" href="#">Open Bout IQ</a>
       <p class="small" id="hint"></p>
+    </div>
+    <div id="confirmed" hidden>
+      <div class="tick"><span>&#10003;</span>Done</div>
+      <h1>Your email is confirmed</h1>
+      <p>Your Bout IQ account is ready.</p>
+      <a id="openConfirmed" class="btn big" href="#">Open Bout IQ</a>
+      <p class="small">Or just go back to the Bout IQ app &mdash; you'll be signed in.</p>
+    </div>
+    <div id="confirmedDesktop" hidden>
+      <div class="tick"><span>&#10003;</span>Done</div>
+      <h1>Your email is confirmed</h1>
+      <p>Go back to the Bout IQ app on your phone &mdash; you'll be signed in.</p>
     </div>
     <div id="desktop" hidden>
       <h1>Open this on your phone</h1>
@@ -66,12 +81,38 @@
   var err  = q.get('error') || q.get('error_description') || (/error/.test(hash) ? hash : '');
   var ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
+  var hasTokens = /access_token=/.test(hash) || !!code;
+
   if (err) { show('broken'); return; }
-  if (!ios) { show('desktop'); return; }
 
   // Carry whatever Supabase sent: implicit tokens live in the fragment, a PKCE
   // code in the query. The app's own parser handles both shapes.
   var target = 'boutiq://auth/' + next + (code ? '?code=' + encodeURIComponent(code) : '') + hash;
+
+  // ⛔ 2 Oct 2026. Take the tokens back out of the address bar the moment they
+  // are read, so they are never on screen, in a screenshot, or in a shared URL.
+  try { history.replaceState(null, '', location.pathname + '?next=' + next); } catch (e) {}
+
+  // ⛔ CONFIRM: SAY WHAT ALREADY HAPPENED (2 Oct 2026). By the time this page
+  // loads, Supabase has ALREADY confirmed the address. A new fighter tapped the
+  // link in Gmail, landed here in Safari, iOS ignored the automatic jump to the
+  // app (it needs a tap), and the page said "Opening Bout IQ…" and "the app may
+  // not be installed" — never that it had worked. He gave up and made a second
+  // account. Now: confirmed first, then a button (a real tap, which iOS
+  // honours). No automatic jump for confirm — the app signs itself in anyway.
+  if (next === 'confirm' && hasTokens) {
+    if (ios) {
+      document.getElementById('openConfirmed').setAttribute('href', target);
+      show('confirmed');
+    } else {
+      show('confirmedDesktop');
+    }
+    document.title = 'Email confirmed';
+    return;
+  }
+
+  if (!ios) { show('desktop'); return; }
+
   var a = document.getElementById('open');
   a.setAttribute('href', target);
   document.getElementById('title').textContent = next === 'reset' ? 'Opening Bout IQ to reset your password…' : 'Opening Bout IQ…';
@@ -80,6 +121,7 @@
 
   function show(id) {
     document.getElementById('opening').hidden = true;
+    ['confirmed','confirmedDesktop','desktop','broken'].forEach(function (k) { document.getElementById(k).hidden = true; });
     document.getElementById(id).hidden = false;
   }
 })();
