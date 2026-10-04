@@ -12,6 +12,7 @@ deployment:
     - /bin/cp subscribe.html  $DEPLOYPATH
     - /bin/cp support.html    $DEPLOYPATH
     - /bin/cp privacy.html    $DEPLOYPATH
+    - /bin/cp delete-account.html $DEPLOYPATH
     - /bin/cp terms.html      $DEPLOYPATH
     - /bin/cp 404.html        $DEPLOYPATH
     # ⛔ ADDED 30 Aug 2026. This file copies BY NAME, one line per file, so a new
