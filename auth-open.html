@@ -79,7 +79,7 @@
   var hash = location.hash || '';
   var code = q.get('code');
   var err  = q.get('error') || q.get('error_description') || (/error/.test(hash) ? hash : '');
-  var ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  var ios = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); // a phone the app can be on (Android added 7 Oct: resets dead-ended on Android)
 
   var hasTokens = /access_token=/.test(hash) || !!code;
 
