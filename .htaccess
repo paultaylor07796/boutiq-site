@@ -32,10 +32,15 @@
   # else's WhatsApp cannot be corrected later — but this one can, because the
   # decision lives HERE and changes with one line and no build.
   #
-  # ⛔ ON RELEASE DAY: change the target below to the App Store page
-  #     https://apps.apple.com/gb/app/id6785041415
-  # and deploy. Every link ever sent, including the old ones, starts working.
-  # Until then it must stay on TestFlight. CLICK IT before calling it done.
+  # ⛔ 12 Oct 2026: Bout IQ is live on BOTH stores. /get stays THE ONLY address;
+  # the store is chosen HERE by the visitor's device, not by the link. Android
+  # user agents go to Google Play; everyone else (iPhone, iPad, Mac, desktop)
+  # goes to the App Store exactly as before. ORDER MATTERS: the Android
+  # condition + rule must sit ABOVE the App Store rule, because the App Store
+  # rule has no condition and would catch everything first. CLICK BOTH before
+  # calling a change done (an Android phone and an iPhone).
+  RewriteCond %{HTTP_USER_AGENT} android [NC]
+  RewriteRule ^get/?$ https://play.google.com/store/apps/details?id=com.apexcorner.boutiq [R=302,L]
   RewriteRule ^get/?$ https://apps.apple.com/gb/app/id6785041415 [R=302,L]
 
   # /auth/open — where every Supabase email link lands (confirm + reset). It

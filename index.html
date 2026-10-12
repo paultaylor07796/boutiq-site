@@ -7,7 +7,7 @@
 <link rel="apple-touch-icon" href="boutiq-icon-apple-ready.png">
 <title>Bout IQ — Elite Boxing Performance</title>
 <link rel="canonical" href="https://apex-corner.com/">
-<meta name="description" content="Bout IQ is the training app for boxing. Sessions, roadwork, food, weight and live heart-rate zones — logged in seconds, watched by your corner. Free to start on iPhone.">
+<meta name="description" content="Bout IQ is the training app for boxing. Sessions, roadwork, food, weight and live heart-rate zones — logged in seconds, watched by your corner. On iPhone and Android.">
 <meta property="og:title" content="Bout IQ — Elite Boxing Performance">
 <meta property="og:description" content="Boxing is one of the last great sports still training in the dark. Sessions, roadwork, food, weight and heart rate — logged in seconds, watched by your corner.">
 <meta property="og:type" content="website">
@@ -184,7 +184,17 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;
     box-shadow:0 8px 26px rgba(212,165,55,.28)}
   .getbtn:hover{filter:brightness(1.07)}
   .getbtn .ga{font-size:20px;line-height:1}
-  .gplay-soon{display:inline-flex;align-items:center;margin-left:14px;font-size:14px;color:#8A857C}
+  /* Store buttons — App Store + Google Play side by side (Play live 12 Oct 2026). */
+  .storebtns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .storebtn{display:inline-flex;align-items:center;gap:10px;padding:11px 20px 11px 16px;border-radius:12px;
+    background:var(--panel2);color:var(--text);border:1px solid var(--line);text-decoration:none;
+    min-width:176px;transition:transform .15s,border-color .2s}
+  .storebtn:hover{transform:translateY(-2px);border-color:rgba(212,165,55,.45)}
+  .storebtn svg{width:26px;height:26px;flex:none}
+  .storebtn small{display:block;white-space:nowrap;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;line-height:1;color:var(--muted)}
+  .storebtn .big{display:block;font-size:17px;font-weight:800;line-height:1.15;letter-spacing:-.2px}
+  @media(max-width:900px){.storebtns{justify-content:center}}
+  @media(max-width:420px){.storebtn{min-width:0;padding:10px 14px}.storebtn .big{font-size:15px}.storebtn small{font-size:9px}}
 
 .nav-glove{height:30px;width:auto;display:block}
 .nav-word{height:22px;width:auto;display:block}
@@ -332,7 +342,7 @@ nav .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
         <div>
           <h3 style="display:flex;align-items:center;gap:10px;margin:0 0 2px"><img src="boutiq-glove.png" alt="" style="height:34px;width:auto;display:block" width="954" height="687"><img src="boutiq-wordmark.png" alt="Bout IQ" style="height:26px;width:auto;display:block" width="836" height="171"></h3>
           <div class="tag">Elite Boxing Performance</div>
-          <span class="badge"><span class="dot"></span>Out now on iPhone</span>
+          <span class="badge"><span class="dot"></span>Out now on iPhone and Android</span>
         </div>
         <span class="arrow">›</span>
       </div>
@@ -375,10 +385,13 @@ nav .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
         <img class="lw" src="boutiq-wordmark.png" alt="Bout IQ" width="836" height="171">
       </div>
       <h1>The Boxing App That Logs Itself.</h1>
-      <p class="lead">Sessions, roadwork, food, weight and heart rate — logged in seconds, watched by your corner. Free to start on iPhone.</p>
+      <p class="lead">Sessions, roadwork, food, weight and heart rate — logged in seconds, watched by your corner. On iPhone and Android.</p>
       <div class="ctas">
-        <a class="getbtn" href="/get">Get Bout IQ <span class="ga">&rsaquo;</span></a>
-        <span class="undercta">Free forever to log · Android coming soon</span>
+        <div class="storebtns">
+          <a class="storebtn" href="https://apps.apple.com/gb/app/id6785041415" aria-label="Download Bout IQ on the App Store"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.37 12.77c-.03-2.6 2.13-3.85 2.22-3.91-1.21-1.77-3.09-2.01-3.76-2.04-1.6-.16-3.12.94-3.93.94-.81 0-2.06-.92-3.39-.9-1.74.03-3.35 1.01-4.25 2.58-1.81 3.14-.46 7.79 1.3 10.33.86 1.25 1.89 2.65 3.24 2.6 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.39.81 1.4-.02 2.29-1.27 3.14-2.52.99-1.45 1.4-2.85 1.42-2.92-.03-.01-2.72-1.04-2.74-4.13zM13.79 5.13c.71-.87 1.2-2.07 1.07-3.27-1.03.04-2.28.69-3.02 1.55-.66.77-1.24 2-1.08 3.17 1.15.09 2.32-.58 3.03-1.45z"/></svg><span><small>Download on the</small><span class="big">App Store</span></span></a>
+          <a class="storebtn" href="https://play.google.com/store/apps/details?id=com.apexcorner.boutiq" aria-label="Get Bout IQ on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D7FE" d="M3.6 2.3 13.9 12 3.6 21.7c-.3-.2-.5-.6-.5-1.1V3.4c0-.5.2-.9.5-1.1z"/><path fill="#00F076" d="m17.3 8.6-3.4 3.4L3.6 2.3c.3-.2.8-.2 1.3.1l12.4 6.2z"/><path fill="#FF3A44" d="M17.3 15.4 4.9 21.6c-.5.3-1 .3-1.3.1l10.3-9.7 3.4 3.4z"/><path fill="#FFD500" d="m20.5 10.2-3.2-1.6-3.4 3.4 3.4 3.4 3.2-1.6c1.1-.6 1.1-3 0-3.6z"/></svg><span><small>Get it on</small><span class="big">Google Play</span></span></a>
+        </div>
+        <span class="undercta">Round timer free · iPhone and Android</span>
       </div>
     </div>
     
@@ -562,7 +575,10 @@ nav .brand{display:flex;align-items:center;gap:10px;cursor:pointer}
     <div class="band">
       <h2>Boxing Is One Of The Last Great Sports<br>Still Training In The Dark.</h2>
       <p>Bout IQ brings it the edge that transformed cycling, football and athletics — built specifically for the fighter and the corner.</p>
-      <div class="cta-row"><div class="store-row"><a class="getbtn" href="/get">Get Bout IQ <span class="ga">&rsaquo;</span></a><span class="gplay-soon">Android coming soon</span></div></div>
+      <div class="cta-row"><div class="storebtns">
+        <a class="storebtn" href="https://apps.apple.com/gb/app/id6785041415" aria-label="Download Bout IQ on the App Store"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.37 12.77c-.03-2.6 2.13-3.85 2.22-3.91-1.21-1.77-3.09-2.01-3.76-2.04-1.6-.16-3.12.94-3.93.94-.81 0-2.06-.92-3.39-.9-1.74.03-3.35 1.01-4.25 2.58-1.81 3.14-.46 7.79 1.3 10.33.86 1.25 1.89 2.65 3.24 2.6 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.39.81 1.4-.02 2.29-1.27 3.14-2.52.99-1.45 1.4-2.85 1.42-2.92-.03-.01-2.72-1.04-2.74-4.13zM13.79 5.13c.71-.87 1.2-2.07 1.07-3.27-1.03.04-2.28.69-3.02 1.55-.66.77-1.24 2-1.08 3.17 1.15.09 2.32-.58 3.03-1.45z"/></svg><span><small>Download on the</small><span class="big">App Store</span></span></a>
+        <a class="storebtn" href="https://play.google.com/store/apps/details?id=com.apexcorner.boutiq" aria-label="Get Bout IQ on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D7FE" d="M3.6 2.3 13.9 12 3.6 21.7c-.3-.2-.5-.6-.5-1.1V3.4c0-.5.2-.9.5-1.1z"/><path fill="#00F076" d="m17.3 8.6-3.4 3.4L3.6 2.3c.3-.2.8-.2 1.3.1l12.4 6.2z"/><path fill="#FF3A44" d="M17.3 15.4 4.9 21.6c-.5.3-1 .3-1.3.1l10.3-9.7 3.4 3.4z"/><path fill="#FFD500" d="m20.5 10.2-3.2-1.6-3.4 3.4 3.4 3.4 3.2-1.6c1.1-.6 1.1-3 0-3.6z"/></svg><span><small>Get it on</small><span class="big">Google Play</span></span></a>
+      </div></div>
     </div>
   </div></section>
 
