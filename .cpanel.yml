@@ -35,3 +35,6 @@ deployment:
     - /bin/cp app-ads.txt     $DEPLOYPATH
     # auth-open.html — the landing page for confirm / reset email links (10 Sep).
     - /bin/cp auth-open.html  $DEPLOYPATH
+    # guides/ — the fighter and coach guide PDFs the welcome emails link to (7 Nov 2026).
+    - /bin/mkdir -p           $DEPLOYPATH/guides
+    - /bin/cp -R guides/.     $DEPLOYPATH/guides/
